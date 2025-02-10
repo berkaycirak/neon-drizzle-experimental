@@ -1,4 +1,4 @@
-import { integer, pgTable, text, varchar } from "drizzle-orm/pg-core";
+import { integer, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
 export const usersTable = pgTable("users", {
 	id: integer().primaryKey().generatedAlwaysAsIdentity(),
@@ -11,4 +11,5 @@ export const postsTable = pgTable("posts", {
 	id: integer().primaryKey().generatedAlwaysAsIdentity(),
 	userId: integer().references(() => usersTable.id),
 	content: text().notNull(),
+	createdAt: timestamp("created_at", { mode: "string" }).defaultNow(),
 });
